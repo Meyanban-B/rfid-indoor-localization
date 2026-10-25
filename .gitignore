@@ -1,25 +1,47 @@
-# Python virtual environment and dependencies
+# ==============================================================================
+# Git Ignore Configuration for RFID Localization Platform (POLAR)
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. Python Environment & Artifacts
+# ------------------------------------------------------------------------------
 venv/
 .venv/
-ENV/
 env/
+ENV/
+env.bak/
+venv.bak/
 
-# Python caching and compiler outputs
+# Bytecode & Caches
 **/__pycache__/
 **/*.py[cod]
 **/*$py.class
 **/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+.coverage
+htmlcov/
 
-# Local database files (SQLite)
-**/*.db
-**/*.sqlite3
+# Build & Packaging
+build/
+dist/
+*.egg-info/
+*.egg
 
-# Frontend dependencies and builds
+# ------------------------------------------------------------------------------
+# 2. Frontend (React + Vite + Tailwind)
+# ------------------------------------------------------------------------------
+node_modules/
 **/node_modules/
+dist/
 **/dist/
+dist-ssr/
 **/dist-ssr/
+.vite/
+frontend/.vite/
+**/.vite/
 
-# Logs
+# NPM / Yarn / PNPM Logs
 logs/
 *.log
 npm-debug.log*
@@ -27,15 +49,82 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-**/*.local
 
-# IDEs, text editors, and system files
-.vscode/
+# ------------------------------------------------------------------------------
+# 3. Databases & Data Stores (Local development)
+# ------------------------------------------------------------------------------
+# SQLite databases
+**/*.db
+**/*.sqlite
+**/*.sqlite3
+
+# SQLite WAL and lock journals
+**/*.db-journal
+**/*.db-shm
+**/*.db-wal
+**/*.sqlite-journal
+**/*.sqlite-shm
+**/*.sqlite-wal
+**/*.sqlite3-journal
+**/*.sqlite3-shm
+**/*.sqlite3-wal
+
+# ------------------------------------------------------------------------------
+# 4. Docker Volumes & Persistent Containers
+# ------------------------------------------------------------------------------
+mosquitto_data/
+mosquitto_log/
+postgres_data/
+docker/**/data/
+docker/**/log/
+
+# ------------------------------------------------------------------------------
+# 5. Environment Variables & Secrets
+# ------------------------------------------------------------------------------
+.env
+.env.*
+*.env
+*.local
+!.env.example
+
+# ------------------------------------------------------------------------------
+# 6. Large Documents & Binary Research Files
+# ------------------------------------------------------------------------------
+*.pdf
+*.zip
+*.tar.gz
+*.7z
+# Prevent raw telemetry dumps from inflating git history
+*.dump
+
+# ------------------------------------------------------------------------------
+# 7. Operating System & Cloud Storage (OneDrive / Windows / macOS)
+# ------------------------------------------------------------------------------
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# OneDrive conflicted copies & Office lock files
+* - Copy.*
+* conflicted copy *
+~$*
+
+# ------------------------------------------------------------------------------
+# 8. IDEs, Editors & AI Workspaces
+# ------------------------------------------------------------------------------
+.vscode/*
 !.vscode/extensions.json
+!.vscode/launch.json
 .idea/
 .claude/
-.DS_Store
-Thumbs.db
+.gemini/
+.cursor/
 *.suo
 *.ntvs*
 *.njsproj

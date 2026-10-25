@@ -1,6 +1,11 @@
+import sys
+import asyncio
+
+if sys.platform == "win32":
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import asyncio
 from database.connection import init_db
 from api.router import router as api_router
 from mqtt.client import start_mqtt_client, set_ws_broadcast
@@ -32,3 +37,8 @@ async def startup_event():
 @app.get("/")
 def read_root():
     return {"message": "RFID Localization Platform API"}
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+
